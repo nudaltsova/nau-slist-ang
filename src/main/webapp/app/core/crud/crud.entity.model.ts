@@ -17,13 +17,11 @@ export abstract class AbstractCrudComponent{
   protected onError(error: any): void {
     this.lastError = error;
     this.isLoading = false;
-    let errMessage = "Failed to delete item"
+    let errMessage = "Internal server error"
     if(error.error && error.error.message){
       errMessage = error.error.message
     } else if(error.message){
       errMessage = error.message
-    } else {
-      errMessage = "Internal server error"
     }
     this.logError("onError: ", error);
   }

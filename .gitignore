@@ -5,10 +5,9 @@
 .factorypath
 .idea/
 .angular/
+target/
 node_modules/
-
 src/main/webapp/environments/environment.*.ts
 
-target/
-
 *log
+*.iml

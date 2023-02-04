@@ -22,7 +22,7 @@ export abstract class CrudListComponent<E extends AbstractEntityWithLabel> exten
   protected sortDirection: boolean = true;
   protected hasNext = false;
   protected hasPrev = false;
- 
+
   constructor(
     protected entityService: CrudService<E>,
     protected modalService: NgbModal,
@@ -85,7 +85,6 @@ export abstract class CrudListComponent<E extends AbstractEntityWithLabel> exten
       error: (error: any) => {
         super.onError(error);
         this.lastError = super.lastErrorMsg;
-        this.isLoading = true;
       },
     });
 
