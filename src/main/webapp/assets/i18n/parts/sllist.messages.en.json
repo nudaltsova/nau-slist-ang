@@ -1,0 +1,10 @@
+{
+  "sllist" : {
+    "property.id" : "Id",
+    "property.date" : "Date",
+    "property.store" : "Store",
+    "property.items" : "Items",
+    "name": "List",
+    "names": "Lists"
+  }
+}

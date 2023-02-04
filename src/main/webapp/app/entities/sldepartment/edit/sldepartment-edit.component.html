@@ -1,0 +1,46 @@
+<div class="container-fluid">
+  <form [formGroup]="editForm" (ngSubmit)="updateEntity()" novalidate>
+    <h2 class="card-header d-flex justify-content-between align-items-left">
+        Update {{ 'sldepartment.name' | translate}}
+        <div>
+            <button type="submit" class="btn btn-outline-primary btn-sm  me-1" [disabled]="isLoading">
+                <span class="fa fa-floppy-disk me-1"></span>
+                <span>{{ 'actions.save' | translate}}</span>
+            </button>
+            <button type="reset"  class="btn btn-outline-primary btn-sm me-1" [routerLink]="['/departments']">
+                <span class="fa fa-ban me-1"></span>
+                <span>{{ 'actions.cancel' | translate}}</span>
+            </button>
+        </div>
+    </h2>
+    <br/>
+      <table class="table table-strapped">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity?.id }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'sldepartment.property.name' | translate }}</th>
+            <td><input type="text" name="name" id="name" formControlName="name"/></td>
+        </tr>
+        <tr>
+            <th>{{ 'sldepartment.property.orderNum' | translate }}</th>
+            <td><input type="text" name="orderNum" id="orderNum" formControlName="orderNum"/></td>
+        </tr>
+        <tr>
+            <th>{{ 'sldepartment.property.store' | translate }}</th>
+            <td>
+                <select name="store" id="store" formControlName="store">
+                    <option [ngValue]="null"></option>
+                    <option *ngFor="let nextOption of stores" [value]="nextOption.id">{{nextOption.name}}</option>
+                </select>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </form>
+    <br/>
+    <div  *ngIf="lastError.length > 0" class="alert alert-dismissible alert-danger">{{ lastError }}</div>
+
+</div>

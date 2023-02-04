@@ -1,0 +1,19 @@
+{
+  "actions" : {
+    "new": "New",
+    "edit": "Edit",
+    "delete": "Delete",
+    "next": "Next",
+    "prev": "Prev",
+    "save": "Save",
+    "ok": "Ok",
+    "cancel": "Cancel",
+    "refresh": "Refresh",
+    "confirm": "Confirm"
+  },
+  "menu" : {
+    "home" : "home",
+    "logout" : "logout",
+    "entities" : "entities"
+  }
+}

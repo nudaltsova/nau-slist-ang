@@ -1,0 +1,9 @@
+{
+  "slgroup" : {
+    "property.id" : "Id",
+    "property.name" : "Name",
+    "property.stores" : "Stores",
+    "name": "Group",
+    "names": "Groups"
+  }
+}

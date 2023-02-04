@@ -1,0 +1,11 @@
+{
+  "slstore" : {
+    "property.id" : "Id",
+    "property.name" : "Name",
+    "property.country" : "Country",
+    "property.group" : "Group",
+    "property.departments" : "Departments",
+    "name": "Store",
+    "names": "Stores"
+  }
+}

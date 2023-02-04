@@ -1,0 +1,17 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">{{ 'actions.confirm' | translate}}</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>{{ message }}</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-primary btn-sm  me-1" (click)="onCancel()">{{ 'actions.cancel' | translate}}</button>
+      <button type="button" class="btn btn-outline-primary btn-sm  me-1" data-dismiss="modal" (click)="onOk()">{{ 'actions.ok' | translate}}</button>
+    </div>
+  </div>
+</div>

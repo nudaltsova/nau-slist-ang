@@ -1,0 +1,14 @@
+.classpath
+.history/
+.settings/
+.project
+.factorypath
+.idea/
+.angular/
+node_modules/
+
+src/main/webapp/environments/environment.*.ts
+
+target/
+
+*log

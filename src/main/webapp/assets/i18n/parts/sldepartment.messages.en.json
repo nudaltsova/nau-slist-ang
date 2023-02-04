@@ -1,0 +1,11 @@
+{
+  "sldepartment" : {
+    "property.id" : "Id",
+    "property.name" : "Name",
+    "property.orderNum" : "OrderNum",
+    "property.store" : "Store",
+    "property.items" : "Items",
+    "name": "Department",
+    "names": "Departments"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "slitem" : {
+    "property.id" : "Id",
+    "property.name" : "Name",
+    "property.orderNum" : "OrderNum",
+    "property.department" : "Department",
+    "name": "Item",
+    "names": "Items"
+  }
+}

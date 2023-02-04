@@ -1,0 +1,9 @@
+{
+  "sluser" : {
+    "property.id" : "Id",
+    "property.name" : "Name",
+    "property.login" : "Login",
+    "name": "User",
+    "names": "Users"
+  }
+}

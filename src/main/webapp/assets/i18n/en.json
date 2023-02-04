@@ -1,0 +1,75 @@
+{
+  "actions": {
+    "new": "New",
+    "edit": "Edit",
+    "delete": "Delete",
+    "next": "Next",
+    "prev": "Prev",
+    "save": "Save",
+    "ok": "Ok",
+    "cancel": "Cancel",
+    "refresh": "Refresh",
+    "confirm": "Confirm"
+  },
+  "menu": {
+    "home": "home",
+    "logout": "logout",
+    "entities": "entities"
+  },
+  "home": {
+    "title": "Home Title",
+    "welcome": "Home welcome message"
+  },
+  "sldepartment": {
+    "property.id": "Id",
+    "property.name": "Name",
+    "property.orderNum": "OrderNum",
+    "property.store": "Store",
+    "property.items": "Items",
+    "name": "Department",
+    "names": "Departments"
+  },
+  "slgroup": {
+    "property.id": "Id",
+    "property.name": "Name",
+    "property.stores": "Stores",
+    "property.users": "Users",
+    "name": "Group",
+    "names": "Groups"
+  },
+  "slitem": {
+    "property.id": "Id",
+    "property.name": "Name",
+    "property.orderNum": "OrderNum",
+    "property.department": "Department",
+    "name": "Item",
+    "names": "Items"
+  },
+  "sllist": {
+    "property.id": "Id",
+    "property.date": "Date",
+    "property.store": "Store",
+    "property.items": "Items",
+    "name": "List",
+    "names": "Lists"
+  },
+  "slstore": {
+    "property.id": "Id",
+    "property.name": "Name",
+    "property.country": "Country",
+    "property.group": "Group",
+    "property.departments": "Departments",
+    "name": "Store",
+    "names": "Stores"
+  },
+  "sluser": {
+    "property.id": "Id",
+    "property.login": "Login",
+    "property.name": "Name",
+    "property.approved": "Approved",
+    "property.admin": "Admin",
+    "property.groups": "Groups",
+    "name": "User",
+    "names": "Users"
+  }
+}
