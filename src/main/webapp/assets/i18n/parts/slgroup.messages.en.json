@@ -3,6 +3,7 @@
     "property.id" : "Id",
     "property.name" : "Name",
     "property.stores" : "Stores",
+    "property.userGroups" : "UserGroups",
     "name": "Group",
     "names": "Groups"
   }

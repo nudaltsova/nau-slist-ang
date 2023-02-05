@@ -11,6 +11,8 @@ import { SlGroup } from 'src/main/webapp/app/entities/slgroup/slgroup-model'
 import { SlGroupService } from 'src/main/webapp/app/entities/slgroup/slgroup-service'
 import { SlStore } from 'src/main/webapp/app/entities/slstore/slstore-model'
 import { SlStoreService } from 'src/main/webapp/app/entities/slstore/slstore-service'
+import { SlUserGroup } from 'src/main/webapp/app/entities/slusergroup/slusergroup-model'
+import { SlUserGroupService } from 'src/main/webapp/app/entities/slusergroup/slusergroup-service'
 
 @Component({
   selector: 'group-edit',

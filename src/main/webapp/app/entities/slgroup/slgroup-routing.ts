@@ -6,6 +6,7 @@ import { SlGroupDetailsComponent } from 'src/main/webapp/app/entities/slgroup/ed
 import { SlGroupListComponent } from 'src/main/webapp/app/entities/slgroup/list/slgroup-list.component'
 import { SlGroupService } from 'src/main/webapp/app/entities/slgroup/slgroup-service'
 import { SlStore } from 'src/main/webapp/app/entities/slstore/slstore-model'
+import { SlUserGroup } from 'src/main/webapp/app/entities/slusergroup/slusergroup-model'
 import { CrudResolveService } from 'src/main/webapp/app/core/crud/crud.resolver'
 
 

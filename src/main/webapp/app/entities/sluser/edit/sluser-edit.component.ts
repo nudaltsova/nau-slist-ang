@@ -8,6 +8,8 @@ import { HttpResponse } from '@angular/common/http';
 import { CrudEditComponent } from 'src/main/webapp/app/core/crud/crud-edit.component'
 
 import { SlUser } from 'src/main/webapp/app/entities/sluser/sluser-model'
+import { SlUserGroup } from 'src/main/webapp/app/entities/slusergroup/slusergroup-model'
+import { SlUserGroupService } from 'src/main/webapp/app/entities/slusergroup/slusergroup-service'
 import { SlUserService } from 'src/main/webapp/app/entities/sluser/sluser-service'
 
 @Component({

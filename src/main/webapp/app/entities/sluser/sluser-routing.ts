@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { SlUser } from 'src/main/webapp/app/entities/sluser/sluser-model'
 import { SlUserDetailsComponent } from 'src/main/webapp/app/entities/sluser/edit/sluser-edit.component'
+import { SlUserGroup } from 'src/main/webapp/app/entities/slusergroup/slusergroup-model'
 import { SlUserListComponent } from 'src/main/webapp/app/entities/sluser/list/sluser-list.component'
 import { SlUserService } from 'src/main/webapp/app/entities/sluser/sluser-service'
 import { CrudResolveService } from 'src/main/webapp/app/core/crud/crud.resolver'

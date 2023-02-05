@@ -3,6 +3,7 @@
     "property.id" : "Id",
     "property.name" : "Name",
     "property.login" : "Login",
+    "property.userGroups" : "UserGroups",
     "name": "User",
     "names": "Users"
   }
