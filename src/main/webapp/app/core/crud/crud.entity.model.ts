@@ -10,7 +10,7 @@ export interface AbstractEntityWithLabel extends AbstractEntityWithId {
 }
 
 export abstract class AbstractCrudComponent{
-  lastError: any = null;
+  lastError: any = "";
   lastErrorMsg: string = "";
   isLoading: boolean = false;
 

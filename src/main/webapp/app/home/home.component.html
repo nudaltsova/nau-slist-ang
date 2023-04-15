@@ -2,3 +2,27 @@
 
 <p translate>home.welcome</p>
 
+<table class="table table-hover table-striped">
+  <tbody>
+    <tr>
+      <td *ngFor="let next of groups">{{ next.name }}</td>
+    </tr>
+  </tbody>
+</table>
+<table class="table table-hover table-striped">
+  <tbody>
+    <tr>
+      <td *ngFor="let next of stores">{{ next.name }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="table table-hover table-striped">
+  <tbody>
+    <tr *ngFor="let next of lists">
+      <td >{{ next.date }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div  *ngIf="lastError.length > 0" class="alert alert-dismissible alert-danger">{{ lastError }}</div>
