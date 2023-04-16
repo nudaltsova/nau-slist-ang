@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { HttpResponse } from '@angular/common/http';
+import { Location } from '@angular/common';
 
 import { CrudEditComponent } from 'src/main/webapp/app/core/crud/crud-edit.component'
 
@@ -25,9 +26,10 @@ export class SlItemDetailsComponent extends CrudEditComponent<SlItem> {
        protected override inRouter: ActivatedRoute,
        protected override outRouter: Router,
        protected override formBuilder: FormBuilder,
+       protected override location: Location,
        protected departmentService: SlDepartmentService,
        ) {
-      super(entityService, modalService, inRouter, outRouter, formBuilder);
+      super(entityService, modalService, inRouter, outRouter, formBuilder, location);
 
       this.redirectBackUrl = "/items";
       this.editForm = this.formBuilder.group({

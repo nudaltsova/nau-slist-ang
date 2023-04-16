@@ -7,7 +7,7 @@
                 <span class="fa fa-floppy-disk me-1"></span>
                 <span>{{ 'actions.save' | translate}}</span>
             </button>
-            <button type="reset"  class="btn btn-outline-primary btn-sm me-1" [routerLink]="['/usergroups']">
+            <button type="reset"  class="btn btn-outline-primary btn-sm me-1" (click)="goBack()">
                 <span class="fa fa-ban me-1"></span>
                 <span>{{ 'actions.cancel' | translate}}</span>
             </button>
@@ -46,6 +46,6 @@
     </table>
     </form>
     <br/>
-    <div  *ngIf="lastError.length > 0" class="alert alert-dismissible alert-danger">{{ lastError }}</div>
+    <div *ngIf="hasError()" class="alert alert-dismissible alert-danger">{{ getLastError() }}</div>
 
 </div>
