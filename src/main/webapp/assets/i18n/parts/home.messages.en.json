@@ -1,6 +1,12 @@
 {
   "home": {
       "title": "Home Title",
-      "welcome": "Home welcome message"
+      "welcome": "Home welcome message",
+      "groups": "My Groups",
+      "stores": "My Stores",
+      "lists": "My Lists",
+      "new.group": "New Group",
+      "new.store": "New Store",
+      "new.list": "New List"
   }
 }

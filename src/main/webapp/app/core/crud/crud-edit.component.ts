@@ -1,4 +1,5 @@
-import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {Location} from '@angular/common';
 import { HttpResponse } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -22,7 +23,8 @@ export abstract class CrudEditComponent<E extends AbstractEntityWithLabel> exten
     protected modalService: NgbModal,
     protected inRouter: ActivatedRoute,
     protected outRouter: Router,
-    protected formBuilder?: FormBuilder) {
+    protected formBuilder?: FormBuilder,
+    protected location?: Location) {
     super();
   }
 
@@ -65,6 +67,10 @@ export abstract class CrudEditComponent<E extends AbstractEntityWithLabel> exten
     super.logMessage("onEntityUpdated: entity = ", this.entity);
     if (data != null)
       this.entity = data;
-    this.outRouter.navigate([this.redirectBackUrl]);
+    this.goBack();
+  }
+
+  protected goBack(): void{
+    this.location.back();
   }
 }

@@ -53,5 +53,4 @@
   </div>
 </div>
 <br/>
-<div  *ngIf="lastError.length > 0" class="alert alert-dismissible alert-danger">{{ lastError }}</div>
-</div>
+<div *ngIf="hasError()" class="alert alert-dismissible alert-danger">{{ getLastError() }}</div>
