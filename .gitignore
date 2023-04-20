@@ -7,7 +7,7 @@
 .angular/
 target/
 node_modules/
-src/main/webapp/environments/environment.*.ts
+
 
 *log
 *.iml
