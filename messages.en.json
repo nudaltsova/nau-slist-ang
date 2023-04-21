@@ -20,7 +20,13 @@
     },
     "home": {
       "title": "Home Title",
-      "welcome": "Home welcome message"
+      "welcome": "Home welcome message",
+      "groups": "My Groups",
+      "stores": "My Stores",
+      "lists": "My Lists",
+      "new.group": "New Group",
+      "new.store": "New Store",
+      "new.list": "New List"
     },
     "sldepartment": {
       "property.id": "Id",
@@ -35,7 +41,7 @@
       "property.id": "Id",
       "property.name": "Name",
       "property.stores": "Stores",
-      "property.users": "Users",
+      "property.userGroups": "UserGroups",
       "name": "Group",
       "names": "Groups"
     },
@@ -66,13 +72,19 @@
     },
     "sluser": {
       "property.id": "Id",
-      "property.login": "Login",
       "property.name": "Name",
-      "property.approved": "Approved",
-      "property.admin": "Admin",
-      "property.groups": "Groups",
+      "property.login": "Login",
+      "property.userGroups": "UserGroups",
       "name": "User",
       "names": "Users"
+    },
+    "slusergroup": {
+      "property.id": "Id",
+      "property.approved": "Approved",
+      "property.user": "User",
+      "property.group": "Group",
+      "name": "User-group",
+      "names": "Usergroups"
     }
   }
 }

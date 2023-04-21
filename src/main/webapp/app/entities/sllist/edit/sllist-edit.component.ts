@@ -33,7 +33,6 @@ export class SlListDetailsComponent extends CrudEditComponent<SlList> {
        ) {
       super(entityService, modalService, inRouter, outRouter, formBuilder, location);
 
-      this.redirectBackUrl = "/lists";
       this.editForm = this.formBuilder.group({
         date: '',
         store: '',
@@ -44,9 +43,12 @@ export class SlListDetailsComponent extends CrudEditComponent<SlList> {
 
   protected updateFormValues(){
     this.editForm.patchValue({
-      date: this.entity.date,
-      store: this.entity.store.id,
+          date: this.entity.date,
+          store: this.entity.store.id,
     });
+      if(this.stores.length === 1)
+        this.editForm.controls['store'].setValue(this.stores[0].id, {onlySelf: true});
+
   }
 
   protected updateEntityValues(){

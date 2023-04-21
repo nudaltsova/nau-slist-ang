@@ -29,7 +29,6 @@ export class SlUserDetailsComponent extends CrudEditComponent<SlUser> {
        ) {
       super(entityService, modalService, inRouter, outRouter, formBuilder, location);
 
-      this.redirectBackUrl = "/users";
       this.editForm = this.formBuilder.group({
         name: '',
         login: '',
@@ -40,9 +39,10 @@ export class SlUserDetailsComponent extends CrudEditComponent<SlUser> {
 
   protected updateFormValues(){
     this.editForm.patchValue({
-      name: this.entity.name,
-      login: this.entity.login,
+          name: this.entity.name,
+          login: this.entity.login,
     });
+
   }
 
   protected updateEntityValues(){

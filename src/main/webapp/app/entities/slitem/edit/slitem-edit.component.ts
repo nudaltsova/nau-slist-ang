@@ -31,7 +31,6 @@ export class SlItemDetailsComponent extends CrudEditComponent<SlItem> {
        ) {
       super(entityService, modalService, inRouter, outRouter, formBuilder, location);
 
-      this.redirectBackUrl = "/items";
       this.editForm = this.formBuilder.group({
         name: '',
         orderNum: '',
@@ -43,10 +42,13 @@ export class SlItemDetailsComponent extends CrudEditComponent<SlItem> {
 
   protected updateFormValues(){
     this.editForm.patchValue({
-      name: this.entity.name,
-      orderNum: this.entity.orderNum,
-      department: this.entity.department.id,
+          name: this.entity.name,
+          orderNum: this.entity.orderNum,
+          department: this.entity.department.id,
     });
+      if(this.departments.length === 1)
+        this.editForm.controls['department'].setValue(this.departments[0].id, {onlySelf: true});
+
   }
 
   protected updateEntityValues(){

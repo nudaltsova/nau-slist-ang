@@ -35,7 +35,6 @@ export class SlUserGroupDetailsComponent extends CrudEditComponent<SlUserGroup> 
        ) {
       super(entityService, modalService, inRouter, outRouter, formBuilder, location);
 
-      this.redirectBackUrl = "/usergroups";
       this.editForm = this.formBuilder.group({
         approved: '',
         user: '',
@@ -47,10 +46,15 @@ export class SlUserGroupDetailsComponent extends CrudEditComponent<SlUserGroup> 
 
   protected updateFormValues(){
     this.editForm.patchValue({
-      approved: this.entity.approved,
-      user: this.entity.user.id,
-      group: this.entity.group.id,
+          approved: this.entity.approved,
+          user: this.entity.user.id,
+          group: this.entity.group.id,
     });
+      if(this.users.length === 1)
+        this.editForm.controls['user'].setValue(this.users[0].id, {onlySelf: true});
+      if(this.groups.length === 1)
+        this.editForm.controls['group'].setValue(this.groups[0].id, {onlySelf: true});
+
   }
 
   protected updateEntityValues(){

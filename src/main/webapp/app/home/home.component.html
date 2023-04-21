@@ -22,7 +22,7 @@
     <tr>
       <td *ngFor="let next of stores">{{ next.name }}</td>
       <td>
-        <button class="btn btn-outline-primary btn-sm  me-1" (click)="newStore()">
+        <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/stores/new/']">
           <span class="me-1">{{ 'home.new.store' | translate}}</span>
           <span class="fa fa-forward-step me-1"></span>
         </button>

@@ -31,7 +31,6 @@ export class SlGroupDetailsComponent extends CrudEditComponent<SlGroup> {
        ) {
       super(entityService, modalService, inRouter, outRouter, formBuilder, location);
 
-      this.redirectBackUrl = "/groups";
       this.editForm = this.formBuilder.group({
         name: '',
       });
@@ -41,8 +40,9 @@ export class SlGroupDetailsComponent extends CrudEditComponent<SlGroup> {
 
   protected updateFormValues(){
     this.editForm.patchValue({
-      name: this.entity.name,
+          name: this.entity.name,
     });
+
   }
 
   protected updateEntityValues(){
