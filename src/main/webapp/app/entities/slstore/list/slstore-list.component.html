@@ -10,6 +10,10 @@
         [routerLink]="['/stores/new/']">
         {{ 'actions.new' | translate}}
       </button>
+      <button class="btn btn-outline-primary btn-sm me-1" [disabled]="isLoading"
+        [routerLink]="['/stores/copy/']">
+        {{ 'actions.copy' | translate}}
+      </button>
     </div>
   </h2>
   <table class="table table-hover table-striped">

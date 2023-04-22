@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpResponse } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { AbstractEntityWithId } from './crud.entity.model';
+
 const httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' })
 
 export abstract class CrudService<E extends AbstractEntityWithId> {
@@ -36,4 +37,7 @@ export abstract class CrudService<E extends AbstractEntityWithId> {
     return this.httpClient.get<E[]>(this.resourceUrl + '/' + query, { headers: httpHeaders, observe: 'response' });
   }
 
+  getHeaders() : HttpHeaders {
+    return httpHeaders;
+  }
 }

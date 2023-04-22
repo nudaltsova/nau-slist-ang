@@ -1,42 +1,53 @@
 <div class="container-fluid">
-  <form [formGroup]="editForm" (ngSubmit)="updateEntity()" novalidate>
-    <h2 class="card-header d-flex justify-content-between align-items-left">
-        Update {{ 'slstore.name' | translate}}
-        <div>
-            <button type="submit" class="btn btn-outline-primary btn-sm  me-1" [disabled]="isLoading">
-                <span class="fa fa-floppy-disk me-1"></span>
-                <span>{{ 'actions.save' | translate}}</span>
-            </button>
-            <button type="reset"  class="btn btn-outline-primary btn-sm me-1" (click)="goBack()">
-                <span class="fa fa-ban me-1"></span>
-                <span>{{ 'actions.cancel' | translate}}</span>
-            </button>
-        </div>
-    </h2>
-    <br/>
-      <table class="table table-strapped">
-        <tbody>
-        <tr>
-            <th>{{ 'slstore.property.name' | translate }}</th>
-            <td><input type="text" name="name" id="name" formControlName="name"/></td>
-        </tr>
-        <tr>
-            <th>{{ 'slstore.property.country' | translate }}</th>
-            <td><input type="text" name="country" id="country" formControlName="country"/></td>
-        </tr>
-        <tr>
-            <th>{{ 'slstore.property.group' | translate }}</th>
-            <td>
-                <select name="group" id="group" formControlName="group">
-                    <option [ngValue]="null"></option>
-                    <option *ngFor="let nextOption of groups" [value]="nextOption.id">{{nextOption.name}}</option>
-                </select>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <form [formGroup]="editForm" (ngSubmit)="updateEntity()" novalidate>
+        <h2 class="card-header d-flex justify-content-between align-items-left">
+            Update {{ 'slstore.name' | translate}}
+            <div>
+                <button type="submit" class="btn btn-outline-primary btn-sm  me-1" [disabled]="isLoading">
+                    <span class="fa fa-floppy-disk me-1"></span>
+                    <span>{{ 'actions.save' | translate}}</span>
+                </button>
+                <button type="reset" class="btn btn-outline-primary btn-sm me-1" (click)="goBack()">
+                    <span class="fa fa-ban me-1"></span>
+                    <span>{{ 'actions.cancel' | translate}}</span>
+                </button>
+            </div>
+        </h2>
+        <br />
+        <table class="table table-strapped">
+            <tbody>
+                <tr *ngIf="doCopy">
+                    <th>{{ 'slstore.name' | translate }}</th>
+                    <td>
+                        <select name="store" id="store" formControlName="store">
+                            <option [ngValue]="null"></option>
+                            <option *ngFor="let nextOption of stores" [value]="nextOption.id">{{nextOption.name}}
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ 'slstore.property.name' | translate }}</th>
+                    <td><input type="text" name="name" id="name" formControlName="name" /></td>
+                </tr>
+                <tr *ngIf="!doCopy">
+                    <th>{{ 'slstore.property.country' | translate }}</th>
+                    <td><input type="text" name="country" id="country" formControlName="country" /></td>
+                </tr>
+                <tr>
+                    <th>{{ 'slstore.property.group' | translate }}</th>
+                    <td>
+                        <select name="group" id="group" formControlName="group">
+                            <option [ngValue]="null"></option>
+                            <option *ngFor="let nextOption of groups" [value]="nextOption.id">{{nextOption.name}}
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </form>
-    <br/>
+    <br />
     <div *ngIf="hasError()" class="alert alert-dismissible alert-danger">{{ getLastError() }}</div>
 
 </div>

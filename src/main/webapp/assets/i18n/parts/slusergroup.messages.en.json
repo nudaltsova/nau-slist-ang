@@ -4,7 +4,7 @@
     "property.approved" : "Approved",
     "property.user" : "User",
     "property.group" : "Group",
-    "name": "User-group",
-    "names": "Usergroups"
+    "name": "Membership",
+    "names": "Membership"
   }
 }

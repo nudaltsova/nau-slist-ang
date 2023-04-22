@@ -51,6 +51,13 @@ const SlStoreRoute: Routes = [
     resolve: {
       data: SlStoreResolveService,
     },
+  },
+  {
+    path: 'copy',
+    component: SlStoreDetailsComponent,
+    resolve: {
+      data: SlStoreResolveService,
+    },
   }
 ];
 
