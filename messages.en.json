@@ -11,7 +11,8 @@
       "ok": "Ok",
       "cancel": "Cancel",
       "refresh": "Refresh",
-      "confirm": "Confirm"
+      "confirm": "Confirm",
+      "copy": "Copy"
     },
     "menu": {
       "home": "home",
@@ -83,8 +84,8 @@
       "property.approved": "Approved",
       "property.user": "User",
       "property.group": "Group",
-      "name": "User-group",
-      "names": "Usergroups"
+      "name": "Membership",
+      "names": "Membership"
     }
   }
 }
