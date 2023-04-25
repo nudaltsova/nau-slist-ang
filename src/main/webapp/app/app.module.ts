@@ -11,6 +11,7 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { MsalGuard, MsalInterceptor, MsalModule, MsalRedirectComponent } from '@azure/msal-angular';
 import { InteractionType,  PublicClientApplication } from '@azure/msal-browser';
@@ -34,6 +35,7 @@ const providersList: any[] = environment.auth_required ? [{
   imports: [
     BrowserModule,
     FormsModule,
+    NgbNavModule,
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,

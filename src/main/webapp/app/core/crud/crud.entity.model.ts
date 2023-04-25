@@ -1,4 +1,3 @@
-import { ROUTER_CONFIGURATION } from '@angular/router';
 import { environment } from 'src/main/webapp/environments/environment';
 
 export interface AbstractEntityWithId {

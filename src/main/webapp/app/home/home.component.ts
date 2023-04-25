@@ -11,13 +11,15 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+
 })
 
 export class HomeComponent extends AbstractCrudComponent implements OnInit {
   groups: SlGroup[] = []
   stores: SlStore[] = []
   lists: SlList[] = []
+  activeGroup = 0;
 
   constructor(
     protected homeService: HomeService,
@@ -60,16 +62,17 @@ export class HomeComponent extends AbstractCrudComponent implements OnInit {
 
   }
 
-  newGroup() {
-    super.logMessage("new group");
-  }
-
-  newStore() {
-    super.logMessage("new store");
-  }
-
   newList() {
     super.logMessage("new list");
   }
 
+  getGroupStores(): SlStore[] {
+    const stores : SlStore[] = [];
+    this.stores.forEach( store => {
+      if(store.group.id === this.groups[this.activeGroup].id)
+      stores.push(store);
+    })
+    super.logMessage("active group", this.activeGroup, "stores", stores);
+    return stores;
+  }
 }

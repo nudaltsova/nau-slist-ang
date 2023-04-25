@@ -1,53 +1,35 @@
-<h1>{{ 'home.title' | translate }}</h1>
+<ul ngbNav #nav="ngbNav" [(activeId)]="activeGroup" class="nav-tabs">
+  <li [ngbNavItem]="i" *ngFor="let next of groups; let i = index">
+    <a ngbNavLink>{{ next. name }}</a>
+    <ng-template ngbNavContent>
+      <table>
+        <tr>
+          <td *ngFor="let next of getGroupStores()">
+            <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/stores/new/']">
+              <span class="me-1">{{ next.name }}</span>
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/lists/new/']">
+              <span class="me-1">{{ 'home.new.list' | translate}}</span>
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/stores/new/']">
+              <span class="me-1">{{ 'home.new.store' | translate}}</span>
+            </button>
+          </td>
+        </tr>
+      </table>
 
-<p translate>home.groups</p>
-
-<table class="table table-hover table-striped">
-  <tbody>
-    <tr>
-      <td *ngFor="let next of groups">{{ next.name }}</td>
-      <td>
-        <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/groups/new/']">
-          <span class="me-1">{{ 'home.new.group' | translate}}</span>
-          <span class="fa fa-forward-step me-1"></span>
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<p translate>home.stores</p>
-<table class="table table-hover table-striped">
-  <tbody>
-    <tr>
-      <td *ngFor="let next of stores">{{ next.name }}</td>
-      <td>
-        <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/stores/new/']">
-          <span class="me-1">{{ 'home.new.store' | translate}}</span>
-          <span class="fa fa-forward-step me-1"></span>
-        </button>
-      </td>
-      <td>
-        <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/stores/copy/']">
-          <span class="me-1">{{ 'home.copy.store' | translate}}</span>
-          <span class="fa fa-forward-step me-1"></span>
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<p translate>home.lists</p>
-<button class="btn btn-outline-primary btn-sm  me-1" (click)="newList()">
-  <span class="me-1">{{ 'home.new.list' | translate}}</span>
-  <span class="fa fa-forward-step me-1"></span>
-</button>
-<table class="table table-hover table-striped">
-  <tbody>
-    <tr *ngFor="let next of lists">
-      <td>{{ next.date }}</td>
-    </tr>
-  </tbody>
-</table>
-
-<div *ngIf="hasError()" class="alert alert-dismissible alert-danger">{{ getLastError() }}</div>
+    </ng-template>
+  </li>
+  <li>
+    <td>
+      <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/groups/new/']">
+        <span class="me-1">{{ 'home.new.group' | translate}}</span>
+      </button>
+    </td>
+  </li>
+</ul>
+<div [ngbNavOutlet]="nav"></div>
