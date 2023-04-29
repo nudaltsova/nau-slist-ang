@@ -10,6 +10,7 @@ import { SlDepartmentRoutingModule } from 'src/main/webapp/app/entities/sldepart
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule, FontAwesomeModule, SlDepartmentRoutingModule],
+  exports: [SlDepartmentListComponent],
   declarations: [SlDepartmentListComponent, SlDepartmentDetailsComponent],
   entryComponents: [SlDepartmentListComponent],
 })

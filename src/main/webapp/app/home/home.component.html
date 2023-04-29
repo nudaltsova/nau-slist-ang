@@ -1,35 +1,42 @@
-<ul ngbNav #nav="ngbNav" [(activeId)]="activeGroup" class="nav-tabs">
-  <li [ngbNavItem]="i" *ngFor="let next of groups; let i = index">
-    <a ngbNavLink>{{ next. name }}</a>
-    <ng-template ngbNavContent>
-      <table>
-        <tr>
-          <td *ngFor="let next of getGroupStores()">
-            <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/stores/new/']">
-              <span class="me-1">{{ next.name }}</span>
-            </button>
-          </td>
-          <td>
-            <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/lists/new/']">
-              <span class="me-1">{{ 'home.new.list' | translate}}</span>
-            </button>
-          </td>
-          <td>
-            <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/stores/new/']">
-              <span class="me-1">{{ 'home.new.store' | translate}}</span>
-            </button>
-          </td>
-        </tr>
-      </table>
-
-    </ng-template>
-  </li>
-  <li>
-    <td>
+<div *ngIf="!isLoading">
+  <ul class="nav nav-tabs">
+    <li class="nav-item" *ngFor="let next of getGroups(); let i = index">
+      <a class="nav-link active" aria-current="page" routerLink="/home/{{ i }}">{{ next.name }}</a>
+    </li>
+    <li class="nav-item">
       <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/groups/new/']">
         <span class="me-1">{{ 'home.new.group' | translate}}</span>
+        <span class="fa fa-plus me-1"></span>
       </button>
-    </td>
-  </li>
-</ul>
-<div [ngbNavOutlet]="nav"></div>
+    </li>
+  </ul>
+
+  <button class="btn btn-outline-primary btn-sm  me-1" (click)="changeStore(i)" *ngFor="let next of getStores(); let i = index">
+    <span class="me-1">{{ next.name }}</span>
+  </button>
+  <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/stores/new/']">
+    <span class="me-1">{{ 'home.new.store' | translate}}</span>
+    <span class="fa fa-plus me-1"></span>
+  </button>
+  <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/stores/copy/']">
+    <span class="me-1">{{ 'home.copy.store' | translate}}</span>
+    <span class="fa fa-copy me-1"></span>
+  </button>
+  <div *ngIf="!hasStores()">no stores for group {{ getActiveGroup().name }}</div>
+  <div *ngIf="hasStores()">
+
+  <table border="1">
+    <tr>
+      <td colspan="2">
+        <div *ngFor="let next of getStores(); let i = index">
+          <div *ngIf="i === activeStoreIndex">lists for store {{ getActiveStore().name }}</div>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+</div>
+
+<div *ngIf="isLoading">
+  loading ...
+</div>

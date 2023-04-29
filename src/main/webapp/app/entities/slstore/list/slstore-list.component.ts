@@ -19,4 +19,11 @@ export class SlStoreListComponent extends CrudListComponent<SlStore> {
        protected override routerService: ActivatedRoute) {
     super(entityService, modalService, routerService);
   }
+
+  getEntities(): SlStore[]{
+    if(this.entities.length == 0)
+      return [];
+    super.logMessage("getEntities");
+    return this.entities;
+  }
 }

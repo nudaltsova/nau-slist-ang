@@ -7,9 +7,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SlStoreDetailsComponent } from 'src/main/webapp/app/entities/slstore/edit/slstore-edit.component'
 import { SlStoreListComponent } from 'src/main/webapp/app/entities/slstore/list/slstore-list.component'
 import { SlStoreRoutingModule } from 'src/main/webapp/app/entities/slstore/slstore-routing'
+import { SlDepartmentModule } from 'src/main/webapp/app/entities/sldepartment/sldepartment-module'
 
 @NgModule({
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule, FontAwesomeModule, SlStoreRoutingModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule, FontAwesomeModule, SlStoreRoutingModule, SlDepartmentModule],
   declarations: [SlStoreListComponent, SlStoreDetailsComponent],
   entryComponents: [SlStoreListComponent],
 })

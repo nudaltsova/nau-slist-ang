@@ -8,6 +8,7 @@ const authGuard = environment.auth_required ?  [MsalGuard] : [];
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: authGuard },
+  { path: 'home/:id', component: HomeComponent, canActivate: authGuard },
   {
     path: '',
     loadChildren: () => import('./entities/domain-routing').then(m => m.EntityRoutingModule),
@@ -16,7 +17,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { anchorScrolling: 'enabled', enableTracing: true })],
+  // imports: [RouterModule.forRoot(routes, { anchorScrolling: 'enabled', enableTracing: true })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

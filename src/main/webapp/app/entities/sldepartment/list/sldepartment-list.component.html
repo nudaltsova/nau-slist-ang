@@ -43,6 +43,12 @@
             <button class="btn btn-outline-primary btn-sm  me-1" (click)="deleteItem(next.id)">
               <span class="fa fa-trash" aria-hidden="true"></span>
             </button>
+            <button class="btn btn-outline-primary btn-sm  me-1" (click)="departmentUp(next.id)">
+              <span class="fa fa-arrow-up" aria-hidden="true"></span>
+            </button>
+            <button class="btn btn-outline-primary btn-sm  me-1" (click)="departmentDown(next.id)">
+              <span class="fa fa-arrow-down" aria-hidden="true"></span>
+            </button>
           </td>
       </tr>
   </tbody>
