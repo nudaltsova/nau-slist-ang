@@ -10,6 +10,7 @@ import { SlItemRoutingModule } from 'src/main/webapp/app/entities/slitem/slitem-
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule, FontAwesomeModule, SlItemRoutingModule],
+  exports: [SlItemListComponent],
   declarations: [SlItemListComponent, SlItemDetailsComponent],
   entryComponents: [SlItemListComponent],
 })

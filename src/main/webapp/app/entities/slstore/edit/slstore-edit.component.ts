@@ -8,8 +8,6 @@ import { Location } from '@angular/common';
 
 import { CrudEditComponent } from 'src/main/webapp/app/core/crud/crud-edit.component'
 
-import { SlDepartment } from 'src/main/webapp/app/entities/sldepartment/sldepartment-model'
-import { SlDepartmentService } from 'src/main/webapp/app/entities/sldepartment/sldepartment-service'
 import { SlGroup } from 'src/main/webapp/app/entities/slgroup/slgroup-model'
 import { SlGroupService } from 'src/main/webapp/app/entities/slgroup/slgroup-service'
 import { SlStore } from 'src/main/webapp/app/entities/slstore/slstore-model'
