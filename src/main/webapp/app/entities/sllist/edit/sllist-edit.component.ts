@@ -20,6 +20,7 @@ import { SlStoreService } from 'src/main/webapp/app/entities/slstore/slstore-ser
   templateUrl: './sllist-edit.component.html'
 })
 export class SlListDetailsComponent extends CrudEditComponent<SlList> {
+  protected doCopy = false;
   protected activeStore = -1;
   protected listDate: Date;
 
@@ -45,6 +46,7 @@ export class SlListDetailsComponent extends CrudEditComponent<SlList> {
   override ngOnInit(): void {
     this.activeStore = Number(this.inRouter.snapshot.url[1] + '');
     this.action = this.inRouter.snapshot.url[0] + '';
+    this.doCopy = this.action === "copy";
     this.inRouter.data.subscribe(({ data }) => {
       this.onEntityLoaded(data);
     });
@@ -56,10 +58,14 @@ export class SlListDetailsComponent extends CrudEditComponent<SlList> {
     if (data != null) {
       this.entity = data;
       if (this.action === 'new') {
-        const currentMillis: number = (new Date()).getTime();
-        this.entity.date = currentMillis;
+        this.entity.date = (new Date()).getTime();
         this.entity.store = new SlStore();
       }
+      if(this.doCopy){
+        this.entity.id = null;
+        this.entity.date = (new Date()).getTime();
+      }
+   
       this.loadRelatedItems();
     }
   }
@@ -92,7 +98,7 @@ export class SlListDetailsComponent extends CrudEditComponent<SlList> {
         super.onError(error);
       },
     });
-  }
+ }
 
 }
 

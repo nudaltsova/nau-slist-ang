@@ -18,7 +18,7 @@ import { SlStoreService } from 'src/main/webapp/app/entities/slstore/slstore-ser
   templateUrl: './slstore-edit.component.html'
 })
 export class SlStoreDetailsComponent extends CrudEditComponent<SlStore> {
-  doCopy = false;
+  protected doCopy = false;
   protected groups: SlGroup[] = [];
   protected stores: SlStore[] = [];
 

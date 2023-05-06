@@ -51,6 +51,13 @@ const SlListRoute: Routes = [
     resolve: {
       data: SlListResolveService,
     },
+  },
+  {
+    path: 'copy/:id',
+    component: SlListDetailsComponent,
+    resolve: {
+      data: SlListResolveService,
+    },
   }
 ];
 
