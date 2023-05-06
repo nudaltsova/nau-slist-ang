@@ -27,8 +27,8 @@ export abstract class CrudListComponent<E extends AbstractEntityWithLabel> exten
     protected entityService: CrudService<E>,
     protected modalService: NgbModal,
     protected routerService?: ActivatedRoute) {
-      super();
-    }
+    super();
+  }
 
   ngOnInit(): void {
     this.loadPage(0);
@@ -66,6 +66,14 @@ export abstract class CrudListComponent<E extends AbstractEntityWithLabel> exten
     });
   }
 
+  protected bulldQuery(page: number): string {
+    let queryParams = "?page=" + page;
+    queryParams = queryParams + "&size=" + environment.itemsPerPage;
+    queryParams = queryParams + "&sort=" + this.sortItem;
+    queryParams = queryParams + "," + (this.sortDirection ? "ASC" : "DESC");
+    return queryParams;
+  }
+
   protected loadPage(page: number): void {
     if (page < 0) {
       return;
@@ -73,21 +81,18 @@ export abstract class CrudListComponent<E extends AbstractEntityWithLabel> exten
     this.isLoading = true;
     this.lastError = ""
 
-    let queryParams = "?page=" + page;
-    queryParams = queryParams + "&size=" + environment.itemsPerPage;
-    queryParams = queryParams + "&sort=" + this.sortItem;
-    queryParams = queryParams + "," + (this.sortDirection ? "ASC" : "DESC");
-
-    this.entityService.getAll(queryParams).subscribe({
-      next: (res: HttpResponse<E[]>) => {
-        this.onLoadPageSuccess(res.body, res.headers, page);
-      },
-      error: (error: any) => {
-        super.onError(error);
-        this.lastError = super.lastErrorMsg;
-      },
-    });
-
+    let queryParams = this.bulldQuery(page);
+    if (queryParams) {
+      this.entityService.getAll(queryParams).subscribe({
+        next: (res: HttpResponse<E[]>) => {
+          this.onLoadPageSuccess(res.body, res.headers, page);
+        },
+        error: (error: any) => {
+          super.onError(error);
+          this.lastError = super.lastErrorMsg;
+        },
+      });
+    }
   }
 
   protected onLoadPageSuccess(data: E[] | null, headers: HttpHeaders, page: number): void {
@@ -98,7 +103,7 @@ export abstract class CrudListComponent<E extends AbstractEntityWithLabel> exten
     this.page = page;
     this.hasPrev = page > 0;
     this.hasNext = environment.itemsPerPage * (page + 1) < this.totalItems;
-    this.totalPages =  Math.ceil(this.totalItems/environment.itemsPerPage);
+    this.totalPages = Math.ceil(this.totalItems / environment.itemsPerPage);
     this.entities = data ?? [];
     this.isLoading = false;
     super.logMessage("onLoadPageSuccess: entities = ", this.entities);

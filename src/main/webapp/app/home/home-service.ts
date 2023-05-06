@@ -24,8 +24,8 @@ export class HomeService  {
     return this.httpClient.get<SlStore[]>(this.resourceUrl + '/stores', { headers: httpHeaders, observe: 'response' });
   }
 
-  getLists(): Observable<HttpResponse<SlList[]>> {
-    return this.httpClient.get<SlList[]>(this.resourceUrl + '/lists', { headers: httpHeaders, observe: 'response' });
+  getLists(query: string): Observable<HttpResponse<SlList[]>> {
+    return this.httpClient.get<SlList[]>(this.resourceUrl + '/lists' + query, { headers: httpHeaders, observe: 'response' });
   }
 
 }

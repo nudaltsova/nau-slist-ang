@@ -18,16 +18,11 @@
         <tbody>
         <tr>
             <th>{{ 'sllist.property.date' | translate }}</th>
-            <td><input type="text" name="date" id="date" formControlName="date"/></td>
+            <td>{{listDate | date:'dd-MM-yyyy hh:mm:ss'}}</td>
         </tr>
         <tr>
             <th>{{ 'sllist.property.store' | translate }}</th>
-            <td>
-                <select name="store" id="store" formControlName="store">
-                    <option [ngValue]="null"></option>
-                    <option *ngFor="let nextOption of stores" [value]="nextOption.id">{{nextOption.name}}</option>
-                </select>
-            </td>
+            <td>{{ entity.store.name }}</td>
         </tr>
         </tbody>
     </table>

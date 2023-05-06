@@ -28,7 +28,7 @@ export class SlListResolveService extends CrudResolveService<SlList> {
 }
 const SlListRoute: Routes = [
   {
-    path: '',
+    path: ':storeId',
     component: SlListListComponent,
   },
   {
@@ -46,7 +46,7 @@ const SlListRoute: Routes = [
     },
   },
   {
-    path: 'new',
+    path: 'new/:storeId',
     component: SlListDetailsComponent,
     resolve: {
       data: SlListResolveService,

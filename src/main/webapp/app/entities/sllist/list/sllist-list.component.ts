@@ -13,10 +13,25 @@ import { SlListService } from 'src/main/webapp/app/entities/sllist/sllist-servic
   templateUrl: './sllist-list.component.html'
 })
 export class SlListListComponent extends CrudListComponent<SlList> {
+  activeStore : number;
+
   constructor(
        protected override entityService: SlListService,
        protected override modalService: NgbModal,
        protected override routerService: ActivatedRoute) {
     super(entityService, modalService, routerService);
   }
+
+  
+  override ngOnInit(): void {
+    this.activeStore = Number(this.routerService.snapshot.url[0] + '');
+    this.loadPage(0);
+  }
+
+  protected override bulldQuery(page: number): string {
+    let queryParams = super.bulldQuery(page);
+    queryParams = queryParams + "&store.equal=" + this.activeStore;
+    return queryParams;
+  }
+
 }

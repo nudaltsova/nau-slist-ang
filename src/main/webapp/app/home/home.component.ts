@@ -11,8 +11,6 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
-
 })
 
 export class HomeComponent extends AbstractCrudComponent implements OnInit {
@@ -46,9 +44,6 @@ export class HomeComponent extends AbstractCrudComponent implements OnInit {
   }
 
   private loadGroups(): void {
-    // let queryParams = "?page=1";
-    // queryParams = queryParams + "&size=10" + environment.itemsPerPage;
-    // queryParams = queryParams + "&sort=date,DESC";
     super.logMessage("loadGroups started");
     this.homeService.getGroups().subscribe({
       next: (res: HttpResponse<SlGroup[]>) => {
@@ -63,18 +58,6 @@ export class HomeComponent extends AbstractCrudComponent implements OnInit {
       },
     });
 
-  }
-
-  getGroups(): SlGroup[] {
-    if (this.isLoading)
-      return [];
-
-    super.logMessage("getGroups");
-    return this.groups;
-  }
-
-  hasGroups(): boolean {
-    return this.groups && this.groups.length > 0;
   }
 
   getActiveGroup(): SlGroup {
@@ -92,6 +75,7 @@ export class HomeComponent extends AbstractCrudComponent implements OnInit {
         })
         this.activeStoreIndex = this.stores.length > 0 ? 0 : -1;
         this.isLoading = false;
+        this.changeStore(this.activeStoreIndex);
       },
       error: (error: any) => {
         super.onError(error);
@@ -99,25 +83,29 @@ export class HomeComponent extends AbstractCrudComponent implements OnInit {
     });
   }
 
-  getStores(): SlStore[] {
-    if (this.isLoading)
-      return [];
-
-    super.logMessage("getStores", "active group", this.activeGroupIndex, "stoeres: ", this.stores);
-    return this.stores;
-  }
-
-  hasStores(): boolean {
-    return this.stores && this.stores.length > 0;
-  }
-
   getActiveStore(): SlStore {
     return this.stores[this.activeStoreIndex];
   }
 
-  loadLists(storeId: number) {
+  changeStore(storeId: number) {
     this.activeStoreIndex = storeId;
-    super.logMessage("lists", storeId);
+
+    let queryParams = "?page=" + 0;
+    queryParams = queryParams + "&store.equal=" + this.getActiveStore().id;
+    queryParams = queryParams + "&size=" + environment.itemsPerPage;
+    queryParams = queryParams + "&sort=date"
+    queryParams = queryParams + ",DESC";
+    this.lists = []
+    this.homeService.getLists(queryParams).subscribe({
+      next: (res: HttpResponse<SlGroup[]>) => {
+        this.lists = res.body;
+        this.onSuccess("lists loaded", this.groups);
+      },
+      error: (error: any) => {
+        super.onError(error);
+      },
+    });
+
   }
 
   isActive(storeIdx: number) {
@@ -127,8 +115,5 @@ export class HomeComponent extends AbstractCrudComponent implements OnInit {
     const result = this.activeStoreIndex === storeIdx;
     super.logMessage("isActive storeId ", storeIdx, "activeStoreIndex", this.activeStoreIndex, "result ", result);
     return result;
-  }
-  changeStore(storeIdx: number){
-    this.activeStoreIndex = storeIdx;
   }
 }

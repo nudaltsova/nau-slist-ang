@@ -30,7 +30,7 @@
     <tbody>
       <tr *ngFor="let next of entities">
           <td>{{ next.id }}</td>
-            <td>{{ next.date }}</td>
+            <td>{{ next.date | date:'medium' }}</td>
             <td>{{ next.store.name }}</td>
           <td>
             <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/lists/edit/', next.id]">

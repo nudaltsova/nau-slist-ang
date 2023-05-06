@@ -20,49 +20,72 @@ import { SlStoreService } from 'src/main/webapp/app/entities/slstore/slstore-ser
   templateUrl: './sllist-edit.component.html'
 })
 export class SlListDetailsComponent extends CrudEditComponent<SlList> {
-    protected stores: SlStore[] = [];
+  protected activeStore = -1;
+  protected listDate: Date;
 
   constructor(
-       protected override entityService: SlListService,
-       protected override modalService: NgbModal,
-       protected override inRouter: ActivatedRoute,
-       protected override outRouter: Router,
-       protected override formBuilder: FormBuilder,
-       protected override location: Location,
-       protected storeService: SlStoreService,
-       ) {
-      super(entityService, modalService, inRouter, outRouter, formBuilder, location);
+    protected override entityService: SlListService,
+    protected override modalService: NgbModal,
+    protected override inRouter: ActivatedRoute,
+    protected override outRouter: Router,
+    protected override formBuilder: FormBuilder,
+    protected override location: Location,
+    protected storeService: SlStoreService,
+  ) {
+    super(entityService, modalService, inRouter, outRouter, formBuilder, location);
 
-      this.editForm = this.formBuilder.group({
-        date: '',
-        store: '',
-      });
-
-      super.logMessage("ok");
-  }
-
-  protected updateFormValues(){
-    this.editForm.patchValue({
-          date: this.entity.date,
-          store: this.entity.store.id,
+    this.editForm = this.formBuilder.group({
+      date: '',
+      store: '',
     });
-      if(this.stores.length === 1)
-        this.editForm.controls['store'].setValue(this.stores[0].id, {onlySelf: true});
 
+    super.logMessage("ok");
   }
 
-  protected updateEntityValues(){
+  override ngOnInit(): void {
+    this.activeStore = Number(this.inRouter.snapshot.url[1] + '');
+    this.action = this.inRouter.snapshot.url[0] + '';
+    this.inRouter.data.subscribe(({ data }) => {
+      this.onEntityLoaded(data);
+    });
+  }
+
+
+  protected override onEntityLoaded(data: SlList | null): void {
+    super.logMessage("onEntityLoaded: entity = ", this.entity);
+    if (data != null) {
+      this.entity = data;
+      if (this.action === 'new') {
+        const currentMillis: number = (new Date()).getTime();
+        this.entity.date = currentMillis;
+        this.entity.store = new SlStore();
+      }
+      this.loadRelatedItems();
+    }
+  }
+
+  protected updateFormValues() {
+    this.editForm.patchValue({
+      date: this.entity.date,
+      store: this.entity.store.id,
+    });
+  }
+
+  protected updateEntityValues() {
     this.entity.date = this.editForm.get(['date'])!.value;
     this.entity.store.id = this.editForm.get(['store'])!.value;
   }
 
-
   protected loadRelatedItems(): void {
-    let queryParams = '';
-    queryParams = "?page=0&size=1000&sort=name,ASC";
-    this.storeService.getAll(queryParams).subscribe({
-      next: (res: HttpResponse<SlStore[]>) => {
-        this.stores = res.body;
+    this.listDate = new Date(this.entity.date);
+    let loadStoreId = -1;
+    if (this.action === 'new')
+      loadStoreId = this.activeStore;
+    else
+      loadStoreId = this.entity.store.id;
+    this.storeService.get(loadStoreId).subscribe({
+      next: (res: HttpResponse<SlStore>) => {
+        this.entity.store = res.body;
         this.updateFormValues();
       },
       error: (error: any) => {

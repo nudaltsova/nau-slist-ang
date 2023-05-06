@@ -17,42 +17,24 @@ import { HttpResponse } from '@angular/common/http';
 export class SlDepartmentListComponent extends CrudListComponent<SlDepartment> {
   @Input()
   storeId: number;
-  
+
   constructor(
-       protected override entityService: SlDepartmentService,
-       protected override modalService: NgbModal,
-       protected override routerService: ActivatedRoute) {
+    protected override entityService: SlDepartmentService,
+    protected override modalService: NgbModal,
+    protected override routerService: ActivatedRoute) {
     super(entityService, modalService, routerService);
   }
 
-  protected override loadPage(page: number): void {
-    if (page < 0) {
-      return;
+  protected override bulldQuery(page: number): string {
+    if (this.storeId) {
+      let queryParams = super.bulldQuery(page);
+      queryParams = queryParams + "&store.equal=" + this.storeId;
+      return queryParams;
     }
-    if (! this.storeId ) {
-      return;
-    }
-   this.isLoading = true;
-    this.lastError = ""
-
-    let queryParams = "?store.equal=" + this.storeId;
-    queryParams = queryParams + "&page=" + page;
-    queryParams = queryParams + "&size=" + environment.itemsPerPage;
-    queryParams = queryParams + "&sort=orderNum";
-    queryParams = queryParams + "," + (this.sortDirection ? "ASC" : "DESC");
-
-    this.entityService.getAll(queryParams).subscribe({
-      next: (res: HttpResponse<SlDepartment[]>) => {
-        this.onLoadPageSuccess(res.body, res.headers, page);
-      },
-      error: (error: any) => {
-        super.onError(error);
-        this.lastError = super.lastErrorMsg;
-      },
-    });
+    return null;
   }
 
-  departmentUp(departmentId : number) : void {
+  departmentUp(departmentId: number): void {
     this.entityService.departmentUp(departmentId).subscribe({
       next: (res: HttpResponse<SlDepartment>) => {
         this.loadPage(this.page);
@@ -64,7 +46,7 @@ export class SlDepartmentListComponent extends CrudListComponent<SlDepartment> {
 
   }
 
-  departmentDown(departmentId : number) : void {
+  departmentDown(departmentId: number): void {
     this.entityService.departmentDown(departmentId).subscribe({
       next: (res: HttpResponse<SlDepartment>) => {
         this.loadPage(this.page);

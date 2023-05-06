@@ -1,7 +1,7 @@
 <div *ngIf="!isLoading">
-  <ul class="nav nav-tabs">
-    <li class="nav-item" *ngFor="let next of getGroups(); let i = index">
-      <a class="nav-link active" aria-current="page" routerLink="/home/{{ i }}">{{ next.name }}</a>
+  <ul class="nav nav-pills nav-fill">
+    <li class="nav-item" *ngFor="let next of groups; let i = index">
+      <a class="nav-link" aria-current="page" routerLink="/home/{{ i }}" [ngClass]="{ 'active':activeGroupIndex===i}">{{ next.name }}</a>
     </li>
     <li class="nav-item">
       <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/groups/new/']">
@@ -11,7 +11,7 @@
     </li>
   </ul>
 
-  <button class="btn btn-outline-primary btn-sm  me-1" (click)="changeStore(i)" *ngFor="let next of getStores(); let i = index">
+  <button class="btn btn-outline-primary btn-sm  me-1" (click)="changeStore(i)" *ngFor="let next of stores; let i = index">
     <span class="me-1">{{ next.name }}</span>
   </button>
   <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/stores/new/']">
@@ -22,15 +22,16 @@
     <span class="me-1">{{ 'home.copy.store' | translate}}</span>
     <span class="fa fa-copy me-1"></span>
   </button>
-  <div *ngIf="!hasStores()">no stores for group {{ getActiveGroup().name }}</div>
-  <div *ngIf="hasStores()">
-
-  <table border="1">
+  <button *ngIf="stores.length > 0" class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/lists/new/' + getActiveStore().id]">
+    <span class="me-1">{{ 'home.new.list' | translate}}</span>
+    <span class="fa fa-list me-1"></span>
+  </button>
+  <div *ngIf="this.stores.length === 0">no stores for group {{ getActiveGroup().name }}</div>
+  <div *ngIf="this.stores.length > 0">
+    <table class="table table-hover table-striped">
     <tr>
-      <td colspan="2">
-        <div *ngFor="let next of getStores(); let i = index">
-          <div *ngIf="i === activeStoreIndex">lists for store {{ getActiveStore().name }}</div>
-        </div>
+      <td *ngFor="let next of lists; let i = index">
+        {{ next.date  | date:'medium'  }}
       </td>
     </tr>
   </table>
