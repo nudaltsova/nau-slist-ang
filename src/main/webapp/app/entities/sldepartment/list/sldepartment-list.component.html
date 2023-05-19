@@ -7,7 +7,7 @@
         {{ 'actions.refresh' | translate}}
       </button>
       <button class="btn btn-outline-primary btn-sm me-1" [disabled]="isLoading"
-        [routerLink]="['/departments/new/']">
+        [routerLink]="['/departments/new/' + storeId]">
         {{ 'actions.new' | translate}}
       </button>
     </div>

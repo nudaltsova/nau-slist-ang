@@ -18,40 +18,47 @@ import { SlItemService } from 'src/main/webapp/app/entities/slitem/slitem-servic
   templateUrl: './slitem-edit.component.html'
 })
 export class SlItemDetailsComponent extends CrudEditComponent<SlItem> {
-    protected departments: SlDepartment[] = [];
+  protected departments: SlDepartment[] = [];
+  protected departmentsId: number = -1;
 
   constructor(
-       protected override entityService: SlItemService,
-       protected override modalService: NgbModal,
-       protected override inRouter: ActivatedRoute,
-       protected override outRouter: Router,
-       protected override formBuilder: FormBuilder,
-       protected override location: Location,
-       protected departmentService: SlDepartmentService,
-       ) {
-      super(entityService, modalService, inRouter, outRouter, formBuilder, location);
+    protected override entityService: SlItemService,
+    protected override modalService: NgbModal,
+    protected override inRouter: ActivatedRoute,
+    protected override outRouter: Router,
+    protected override formBuilder: FormBuilder,
+    protected override location: Location,
+    protected departmentService: SlDepartmentService,
+  ) {
+    super(entityService, modalService, inRouter, outRouter, formBuilder, location);
 
-      this.editForm = this.formBuilder.group({
-        name: '',
-        orderNum: '',
-        department: '',
-      });
-
-      super.logMessage("ok");
-  }
-
-  protected updateFormValues(){
-    this.editForm.patchValue({
-          name: this.entity.name,
-          orderNum: this.entity.orderNum,
-          department: this.entity.department.id,
+    this.editForm = this.formBuilder.group({
+      name: '',
+      orderNum: '',
+      department: '',
     });
-      if(this.departments.length === 1)
-        this.editForm.controls['department'].setValue(this.departments[0].id, {onlySelf: true});
+
+    super.logMessage("ok");
+  }
+
+  protected updateFormValues() {
+    if (this.parentId)
+      this.departmentsId = Number(this.parentId);
+    this.editForm.patchValue({
+      name: this.entity.name,
+      orderNum: this.entity.orderNum,
+      department: this.entity.department.id,
+    });
+    if (this.departments.length === 1)
+      this.editForm.controls['department'].setValue(this.departments[0].id, { onlySelf: true });
+    if (this.departmentsId > 0) {
+      this.editForm.controls['department'].setValue(this.departmentsId, { onlySelf: true });
+      this.editForm.controls['department'].disable();
+    }
 
   }
 
-  protected updateEntityValues(){
+  protected updateEntityValues() {
     this.entity.name = this.editForm.get(['name'])!.value;
     this.entity.orderNum = this.editForm.get(['orderNum'])!.value;
     this.entity.department.id = this.editForm.get(['department'])!.value;
@@ -59,11 +66,12 @@ export class SlItemDetailsComponent extends CrudEditComponent<SlItem> {
 
 
   protected loadRelatedItems(): void {
-    let queryParams = '';
-    queryParams = "?page=0&size=1000&sort=name,ASC";
-    this.departmentService.getAll(queryParams).subscribe({
-      next: (res: HttpResponse<SlDepartment[]>) => {
-        this.departments = res.body;
+    if (this.parentId)
+      this.departmentsId = Number(this.parentId);
+
+    this.departmentService.get(this.departmentsId).subscribe({
+      next: (res: HttpResponse<SlDepartment>) => {
+        this.departments[0] = res.body;
         this.updateFormValues();
       },
       error: (error: any) => {

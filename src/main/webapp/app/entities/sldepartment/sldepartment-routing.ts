@@ -46,7 +46,7 @@ const SlDepartmentRoute: Routes = [
     },
   },
   {
-    path: 'new',
+    path: 'new/:parentId',
     component: SlDepartmentDetailsComponent,
     resolve: {
       data: SlDepartmentResolveService,

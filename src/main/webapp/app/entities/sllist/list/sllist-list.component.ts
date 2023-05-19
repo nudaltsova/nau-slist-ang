@@ -13,7 +13,7 @@ import { SlListService } from 'src/main/webapp/app/entities/sllist/sllist-servic
   templateUrl: './sllist-list.component.html'
 })
 export class SlListListComponent extends CrudListComponent<SlList> {
-  activeStore : number;
+  protected activeStore = -1;
 
   constructor(
        protected override entityService: SlListService,
@@ -22,10 +22,10 @@ export class SlListListComponent extends CrudListComponent<SlList> {
     super(entityService, modalService, routerService);
   }
 
-  
+
   override ngOnInit(): void {
     this.activeStore = Number(this.routerService.snapshot.url[0] + '');
-    this.loadPage(0);
+    super.ngOnInit();
   }
 
   protected override bulldQuery(page: number): string {
@@ -34,4 +34,11 @@ export class SlListListComponent extends CrudListComponent<SlList> {
     return queryParams;
   }
 
+  addItem(){
+
+  }
+
+  searchChanged(){
+    
+  }
 }

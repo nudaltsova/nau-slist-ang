@@ -21,7 +21,7 @@ import { SlStoreService } from 'src/main/webapp/app/entities/slstore/slstore-ser
 })
 export class SlDepartmentDetailsComponent extends CrudEditComponent<SlDepartment> {
   protected stores: SlStore[] = [];
-  protected groupId: -1;
+  protected storeId: number = -1;
 
   constructor(
     protected override entityService: SlDepartmentService,
@@ -31,7 +31,7 @@ export class SlDepartmentDetailsComponent extends CrudEditComponent<SlDepartment
     protected override formBuilder: FormBuilder,
     protected override location: Location,
     protected storeService: SlStoreService,
-    
+
   ) {
     super(entityService, modalService, inRouter, outRouter, formBuilder, location);
 
@@ -45,6 +45,9 @@ export class SlDepartmentDetailsComponent extends CrudEditComponent<SlDepartment
   }
 
   protected updateFormValues() {
+    if (this.parentId)
+      this.storeId = Number(this.parentId);
+
     this.editForm.patchValue({
       name: this.entity.name,
       orderNum: this.entity.orderNum,
@@ -52,6 +55,11 @@ export class SlDepartmentDetailsComponent extends CrudEditComponent<SlDepartment
     });
     if (this.stores.length === 1)
       this.editForm.controls['store'].setValue(this.stores[0].id, { onlySelf: true });
+
+    if (this.storeId > 0) {
+      this.editForm.controls['store'].setValue(this.storeId, { onlySelf: true });
+      this.editForm.controls['store'].disable();
+    }
 
   }
 

@@ -45,7 +45,7 @@ const SlItemRoute: Routes = [
     },
   },
   {
-    path: 'new',
+    path: 'new/:parentId',
     component: SlItemDetailsComponent,
     resolve: {
       data: SlItemResolveService,
