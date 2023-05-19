@@ -15,6 +15,7 @@ export abstract class CrudEditComponent<E extends AbstractEntityWithLabel> exten
   protected entity?: E;
   protected action: string = "undefined";
   protected redirectBackUrl: string = "/";
+  protected parentId: string;
 
   editForm: FormGroup = null;
 
@@ -33,6 +34,7 @@ export abstract class CrudEditComponent<E extends AbstractEntityWithLabel> exten
   protected abstract loadRelatedItems(): void;
 
   ngOnInit(): void {
+    this.parentId = this.inRouter.snapshot.paramMap.get('parentId');
     this.action = this.inRouter.snapshot.url[0] + '';
     this.inRouter.data.subscribe(({ data }) => {
       this.onEntityLoaded(data);

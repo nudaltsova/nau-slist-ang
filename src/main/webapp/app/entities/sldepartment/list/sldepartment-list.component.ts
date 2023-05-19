@@ -57,4 +57,8 @@ export class SlDepartmentListComponent extends CrudListComponent<SlDepartment> {
     });
 
   }
+
+  ngOnChanges() {
+    this.loadPage(0);
+  }
 }

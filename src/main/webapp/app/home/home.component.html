@@ -1,29 +1,46 @@
-<div *ngIf="!isLoading">
-  <ul class="nav nav-pills nav-fill">
-    <li class="nav-item" *ngFor="let next of groups; let i = index">
-      <a class="nav-link" aria-current="page" routerLink="/home/{{ i }}" [ngClass]="{ 'active':activeGroupIndex===i}">{{
-        next.name }}</a>
-    </li>
-    <li class="nav-item">
-      <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/groups/new/']">
-        <span class="me-1">{{ 'home.new.group' | translate}}</span>
-        <span class="fa fa-plus me-1"></span>
-      </button>
-    </li>
-  </ul>
-
-  <button class="btn btn-outline-primary btn-sm  me-1" (click)="changeStore(i)"
-    *ngFor="let next of stores; let i = index">
-    <span class="me-1">{{ next.name }}</span>
-  </button>
-  <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/stores/new/']">
-    <span class="me-1">{{ 'home.new.store' | translate}}</span>
-    <span class="fa fa-plus me-1"></span>
-  </button>
-  <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/stores/copy/']">
-    <span class="me-1">{{ 'home.copy.store' | translate}}</span>
-    <span class="fa fa-copy me-1"></span>
-  </button>
+<div *ngIf="isAdmin()">
+  Hello Admin
+</div>
+<div class="container-fluid" *ngIf="!isLoading && !isAdmin()">
+  <div class="row justify-content-md-left">
+    <ul class="col-md-auto nav nav-pills nav-fill">
+      <li class="nav-item">
+        &nbsp;&nbsp;<span class="fa-solid fa-user-group"></span>&nbsp;&nbsp;
+      </li>
+      <li class="nav-item">
+        <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/groups/new/']">
+          <span class="fa fa-plus me-1"></span>
+        </button>&nbsp;&nbsp;
+      </li>
+      <li class="nav-item" *ngFor="let next of groups; let i = index">
+        <a class="nav-link" aria-current="page" routerLink="/home/{{ i }}"
+          [ngClass]="{ 'active':activeGroupIndex===i}">{{next.name }}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="row justify-content-md-left">
+    <ul class="col-md-auto nav nav-pills nav-fill">
+      <li class="nav-item">
+        &nbsp;&nbsp;<span class="fa-solid fa-store"></span>&nbsp;&nbsp;
+      </li>
+      <li class="nav-item">
+        <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/stores/new/' + getActiveGroup().id ]">
+          <span class="fa fa-plus me-1"></span>
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/stores/copy/' + getActiveGroup().id]">
+          <span class="fa fa-copy me-1"></span>
+        </button>
+      </li>
+      <li class="nav-item" *ngFor="let next of stores; let i = index">
+        <a class="nav-link" aria-current="page" (click)="changeStore(i)"
+          [ngClass]="{ 'active':activeStoreIndex===i}">{{next.name }}</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div  *ngIf="!isLoading && !isAdmin()">
   <button *ngIf="stores.length > 0" class="btn btn-outline-primary btn-sm  me-1"
     [routerLink]="['/lists/new/' + getActiveStore().id]">
     <span class="me-1">{{ 'home.new.list' | translate}}</span>
@@ -32,7 +49,7 @@
   <div *ngIf="this.stores.length === 0">no stores for group {{ getActiveGroup().name }}</div>
   <div *ngIf="this.stores.length > 0">
     <table class="table table-hover table-striped">
-      <tr  *ngFor="let next of lists; let i = index">
+      <tr *ngFor="let next of lists; let i = index">
         <td>
           {{ next.date | date:'medium' }}
           <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/lists/edit/', next.id]">

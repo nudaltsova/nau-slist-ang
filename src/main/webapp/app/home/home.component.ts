@@ -7,6 +7,8 @@ import { SlList } from '../../app/entities/sllist/sllist-model'
 import { HttpResponse } from "@angular/common/http";
 import { AbstractCrudComponent } from '../core/crud/crud.entity.model';
 import { ActivatedRoute } from '@angular/router';
+import { MsalService } from '@azure/msal-angular';
+import { NavigationService } from '../core/navigation';
 
 @Component({
   selector: 'app-home',
@@ -24,12 +26,19 @@ export class HomeComponent extends AbstractCrudComponent implements OnInit {
 
   constructor(
     protected homeService: HomeService,
-    protected routerService: ActivatedRoute) { super(); }
+    protected routerService: ActivatedRoute,
+    protected navigationHistory: NavigationService,
+    protected authService: MsalService) { super(); }
 
   ngOnInit(): void {
     this.isLoading = true;
     this.activeStoreIndex = -1;
     this.activeGroupIndex = 0;
+    if (this.isAdmin()) {
+      this.isLoading = false;
+      return;
+    }
+
     this.routerService.params.subscribe(
       param => {
         const id = param['id']
@@ -41,6 +50,17 @@ export class HomeComponent extends AbstractCrudComponent implements OnInit {
         this.loadGroups();
       }
     );
+  }
+
+  isAdmin(): boolean {
+    var user = null;
+    var roles: string[];
+    if (this.authService.instance.getAllAccounts().length > 0) {
+      user = this.authService.instance.getAllAccounts()[0];
+      roles = (this.authService.instance.getAllAccounts()[0].idTokenClaims as any).roles;
+    }
+    const result = roles && roles.length > 0 && roles.indexOf('SLIST_ROLE_ADMIN') > -1;
+    return result;
   }
 
   private loadGroups(): void {
@@ -84,10 +104,15 @@ export class HomeComponent extends AbstractCrudComponent implements OnInit {
   }
 
   getActiveStore(): SlStore {
+    if (this.activeStoreIndex == -1)
+      return null;
     return this.stores[this.activeStoreIndex];
   }
 
   changeStore(storeId: number) {
+    if (storeId == -1)
+      return;
+
     this.activeStoreIndex = storeId;
 
     let queryParams = "?page=" + 0;

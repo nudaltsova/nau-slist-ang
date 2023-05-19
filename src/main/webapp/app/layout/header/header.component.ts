@@ -7,16 +7,23 @@ import { MsalService } from '@azure/msal-angular';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  menuItems: any = [
-    { label: 'menu.home', route: '/home'},
-    { label: 'menu.entities', items: [
-            { label: 'sluser.name', route: '/users'},
-      { label: 'slgroup.name', route: '/groups'},
-      { label: 'slusergroup.name', route: '/usergroups'},
-      { label: 'slstore.name', route: '/stores'},
-      { label: 'sllist.name', route: '/lists'},
-    ]},
+  menuItemsAdmin: any = [
+    { label: 'menu.home', route: '/home' },
+    {
+      label: 'menu.entities', items: [
+        { label: 'sluser.name', route: '/users' },
+        { label: 'slgroup.name', route: '/groups' },
+        { label: 'slusergroup.name', route: '/usergroups' },
+        { label: 'slstore.name', route: '/stores' },
+        { label: 'sllist.name', route: '/lists' },
+      ]
+    },
   ];
+
+  menuItemsUser: any = [
+    { label: 'menu.home', route: '/home' },
+  ];
+
 
   constructor(private authService: MsalService) { }
 
@@ -34,4 +41,24 @@ export class HeaderComponent implements OnInit {
     }
     return 'Anonymous';
   }
+
+
+  getMenuItems(): any {
+    if (this.isAdmin())
+      return this.menuItemsAdmin;
+    return this.menuItemsAdmin;
+  }
+
+  isAdmin(): boolean {
+    var user = null;
+    var roles: string[];
+    if (this.authService.instance.getAllAccounts().length > 0) {
+      user = this.authService.instance.getAllAccounts()[0];
+      roles = (this.authService.instance.getAllAccounts()[0].idTokenClaims as any).roles;
+    }
+
+    const result = roles && roles.length > 0 && roles.indexOf('SLIST_ROLE_ADMIN') > -1;
+    return result;
+  }
+
 }

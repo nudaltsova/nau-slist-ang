@@ -53,7 +53,21 @@ const SlStoreRoute: Routes = [
     },
   },
   {
+    path: 'new/:parentId',
+    component: SlStoreDetailsComponent,
+    resolve: {
+      data: SlStoreResolveService,
+    },
+  },
+  {
     path: 'copy',
+    component: SlStoreDetailsComponent,
+    resolve: {
+      data: SlStoreResolveService,
+    },
+  },
+  {
+    path: 'copy/:parentId',
     component: SlStoreDetailsComponent,
     resolve: {
       data: SlStoreResolveService,

@@ -7,7 +7,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <ng-template ngFor let-item [ngForOf]="menuItems">
+        <ng-template ngFor let-item [ngForOf]="getMenuItems()">
           <ng-template [ngIf]="item.items == null" [ngIfElse]="submenu">
             <li class="nav-item">
               <a class="nav-link" routerLink="{{item.route}}">{{item.label | translate }}</a>

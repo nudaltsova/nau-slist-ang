@@ -12,6 +12,7 @@ import { SlGroup } from 'src/main/webapp/app/entities/slgroup/slgroup-model'
 import { SlGroupService } from 'src/main/webapp/app/entities/slgroup/slgroup-service'
 import { SlStore } from 'src/main/webapp/app/entities/slstore/slstore-model'
 import { SlStoreService } from 'src/main/webapp/app/entities/slstore/slstore-service'
+import { NavigationService } from 'src/main/webapp/app/core/navigation'
 
 @Component({
   selector: 'store-edit',
@@ -19,6 +20,7 @@ import { SlStoreService } from 'src/main/webapp/app/entities/slstore/slstore-ser
 })
 export class SlStoreDetailsComponent extends CrudEditComponent<SlStore> {
   protected doCopy = false;
+  protected groupId: number = -1;
   protected groups: SlGroup[] = [];
   protected stores: SlStore[] = [];
 
@@ -30,6 +32,7 @@ export class SlStoreDetailsComponent extends CrudEditComponent<SlStore> {
     protected override formBuilder: FormBuilder,
     protected override location: Location,
     protected groupService: SlGroupService,
+    protected navigationHistory: NavigationService
   ) {
     super(entityService, modalService, inRouter, outRouter, formBuilder, location);
 
@@ -44,14 +47,28 @@ export class SlStoreDetailsComponent extends CrudEditComponent<SlStore> {
   }
 
   protected updateFormValues() {
+    if (this.parentId)
+      this.groupId = Number(this.parentId);
+
     this.editForm.patchValue({
       name: this.entity.name,
       country: this.entity.country,
       group: this.entity.group.id,
     });
-    if (this.groups.length === 1)
+
+    this.editForm.controls['country'].setValue("Ireland", { onlySelf: true });
+    this.editForm.controls['country'].disable();
+
+    if (this.groups.length === 1) {
       this.editForm.controls['group'].setValue(this.groups[0].id, { onlySelf: true });
-    if (this.doCopy && this.stores.length === 1){
+      this.editForm.controls['group'].disable();
+    }
+    if (this.groupId > 0) {
+      this.editForm.controls['group'].setValue(this.groupId, { onlySelf: true });
+      this.editForm.controls['group'].disable();
+    }
+
+    if (this.doCopy && this.stores.length === 1) {
       let storeId = this.stores[0].id;
       this.editForm.controls['store'].setValue(storeId, { onlySelf: true });
     }
@@ -65,7 +82,7 @@ export class SlStoreDetailsComponent extends CrudEditComponent<SlStore> {
   }
 
   override updateEntity() {
-    if (! this.doCopy) {
+    if (!this.doCopy) {
       this.updateEntityValues();
       super.updateEntity();
       return;
@@ -111,6 +128,23 @@ export class SlStoreDetailsComponent extends CrudEditComponent<SlStore> {
         super.onError(error);
       },
     });
+  }
+  protected override onEntityUpdated(data: SlStore | null): void {
+    super.logMessage("onEntityUpdated: entity = ", this.entity);
+    if (data != null)
+      this.entity = data;
+    if (this.action === "new")
+      this.outRouter.navigate(['/stores/edit/' + this.entity.id]);
+  }
+
+  getEntityId(): number {
+    return this.entity.id;
+  }
+
+  
+  protected override goBack(): void{
+    const redirectURL = this.navigationHistory.getRedirectBack();
+    this.location.back();
   }
 
 }

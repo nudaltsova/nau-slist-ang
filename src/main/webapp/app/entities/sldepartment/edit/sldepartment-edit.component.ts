@@ -20,40 +20,42 @@ import { SlStoreService } from 'src/main/webapp/app/entities/slstore/slstore-ser
   templateUrl: './sldepartment-edit.component.html'
 })
 export class SlDepartmentDetailsComponent extends CrudEditComponent<SlDepartment> {
-    protected stores: SlStore[] = [];
+  protected stores: SlStore[] = [];
+  protected groupId: -1;
 
   constructor(
-       protected override entityService: SlDepartmentService,
-       protected override modalService: NgbModal,
-       protected override inRouter: ActivatedRoute,
-       protected override outRouter: Router,
-       protected override formBuilder: FormBuilder,
-       protected override location: Location,
-       protected storeService: SlStoreService,
-       ) {
-      super(entityService, modalService, inRouter, outRouter, formBuilder, location);
+    protected override entityService: SlDepartmentService,
+    protected override modalService: NgbModal,
+    protected override inRouter: ActivatedRoute,
+    protected override outRouter: Router,
+    protected override formBuilder: FormBuilder,
+    protected override location: Location,
+    protected storeService: SlStoreService,
+    
+  ) {
+    super(entityService, modalService, inRouter, outRouter, formBuilder, location);
 
-      this.editForm = this.formBuilder.group({
-        name: '',
-        orderNum: '',
-        store: '',
-      });
-
-      super.logMessage("ok");
-  }
-
-  protected updateFormValues(){
-    this.editForm.patchValue({
-          name: this.entity.name,
-          orderNum: this.entity.orderNum,
-          store: this.entity.store.id,
+    this.editForm = this.formBuilder.group({
+      name: '',
+      orderNum: '',
+      store: '',
     });
-      if(this.stores.length === 1)
-        this.editForm.controls['store'].setValue(this.stores[0].id, {onlySelf: true});
+
+    super.logMessage("ok");
+  }
+
+  protected updateFormValues() {
+    this.editForm.patchValue({
+      name: this.entity.name,
+      orderNum: this.entity.orderNum,
+      store: this.entity.store.id,
+    });
+    if (this.stores.length === 1)
+      this.editForm.controls['store'].setValue(this.stores[0].id, { onlySelf: true });
 
   }
 
-  protected updateEntityValues(){
+  protected updateEntityValues() {
     this.entity.name = this.editForm.get(['name'])!.value;
     this.entity.orderNum = this.editForm.get(['orderNum'])!.value;
     this.entity.store.id = this.editForm.get(['store'])!.value;
