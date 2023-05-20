@@ -23,4 +23,5 @@ export class SlStoreService extends CrudService<SlStore> {
     return this.httpClient.post<SlStore>(this.resourceUrl + '/copy?' + query, null, { headers: super.getHeaders(), observe: 'response' });
   }
 
+  
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { environment } from '../../environments/environment';
 import { HomeService } from './home-service';
 import { SlGroup } from '../../app/entities/slgroup/slgroup-model'
@@ -9,6 +10,9 @@ import { AbstractCrudComponent } from '../core/crud/crud.entity.model';
 import { ActivatedRoute } from '@angular/router';
 import { MsalService } from '@azure/msal-angular';
 import { NavigationService } from '../core/navigation';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDialog } from '../core/modal/modal-dialog.component';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +32,7 @@ export class HomeComponent extends AbstractCrudComponent implements OnInit {
     protected homeService: HomeService,
     protected routerService: ActivatedRoute,
     protected navigationHistory: NavigationService,
+    protected modalService: NgbModal,
     protected authService: MsalService) { super(); }
 
   ngOnInit(): void {
@@ -81,6 +86,8 @@ export class HomeComponent extends AbstractCrudComponent implements OnInit {
   }
 
   getActiveGroup(): SlGroup {
+    if (!this.groups || this.groups.length == 0)
+      return null;
     return this.groups[this.activeGroupIndex];
   }
 
@@ -141,4 +148,45 @@ export class HomeComponent extends AbstractCrudComponent implements OnInit {
     super.logMessage("isActive storeId ", storeIdx, "activeStoreIndex", this.activeStoreIndex, "result ", result);
     return result;
   }
+
+
+  deletList(index: number) {
+    var entityToDelete = this.lists[index];
+    if (entityToDelete == null)
+      return;
+
+    const modalRef = this.modalService.open(ModalDialog);
+    modalRef.componentInstance.message = "Delete list " + formatDate(entityToDelete.date, 'yyyy-MM-dd hh:mm', 'en_US') + "?";
+    modalRef.result.then((result) => {
+      if (result) {
+        this.homeService.deleteList(entityToDelete.id).subscribe({
+          next: (res: HttpResponse<{}>) => {
+            this.changeStore(this.activeStoreIndex);
+          },
+          error: (error: any) => {
+            super.onError(error);
+            this.lastError = super.lastErrorMsg;
+          },
+        });
+      }
+    });
+  }
+
+  copyList(index: number) {
+    var entityToCopy = this.lists[index];
+    if (entityToCopy == null)
+      return;
+
+    this.homeService.copyList(entityToCopy.id).subscribe({
+      next: (res: SlList) => {
+        this.changeStore(this.activeStoreIndex);
+      },
+      error: (error: any) => {
+        super.onError(error);
+        this.lastError = super.lastErrorMsg;
+      },
+    });
+
+  }
+
 }

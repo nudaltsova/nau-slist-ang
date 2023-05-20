@@ -12,7 +12,8 @@
     "confirm": "Confirm",
     "close": "Close",
     "add": "Add",
-    "copy" : "Copy"
+    "copy" : "Copy",
+    "searchitem": "Search an Item"
   },
   "menu" : {
     "home" : "home",

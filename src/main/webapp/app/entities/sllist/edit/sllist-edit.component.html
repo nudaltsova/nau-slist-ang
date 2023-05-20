@@ -1,33 +1,75 @@
-<div class="container-fluid">
+<div class="container-fluid fill-height" >
   <form [formGroup]="editForm" (ngSubmit)="updateEntity()" novalidate>
     <h2 class="card-header d-flex justify-content-between align-items-left">
-        Update {{ 'sllist.name' | translate}}
-        <div>
-            <button type="submit" class="btn btn-outline-primary btn-sm  me-1" [disabled]="isLoading">
-                <span class="fa fa-floppy-disk me-1"></span>
-                <span>{{ 'actions.save' | translate}}</span>
-            </button>
-            <button type="reset"  class="btn btn-outline-primary btn-sm me-1" (click)="goBack()">
-                <span class="fa fa-ban me-1"></span>
-                <span>{{ 'actions.cancel' | translate}}</span>
-            </button>
-        </div>
+      Update {{ 'sllist.name' | translate}}
+      <div>
+        <button type="submit" class="btn btn-outline-primary btn-sm  me-1" [disabled]="isLoading">
+          <span class="fa fa-floppy-disk me-1"></span>
+          <span>{{ 'actions.save' | translate}}</span>
+        </button>
+        <button type="reset" class="btn btn-outline-primary btn-sm me-1" (click)="goBack()">
+          <span class="fa fa-ban me-1"></span>
+          <span>{{ 'actions.cancel' | translate}}</span>
+        </button>
+      </div>
     </h2>
-    <br/>
-      <table class="table table-strapped">
-        <tbody>
+    <br />
+    <table class="table table-strapped" style="max-height: 100px;">
+      <tbody>
         <tr>
-            <th>{{ 'sllist.property.date' | translate }}</th>
-            <td>{{listDate | date:'dd-MM-yyyy hh:mm:ss'}}</td>
+          <th>{{ 'sllist.property.date' | translate }}</th>
+          <td>{{listDate | date:'dd-MM-yyyy hh:mm:ss'}}</td>
         </tr>
         <tr>
-            <th>{{ 'sllist.property.store' | translate }}</th>
-            <td>{{ entity.store.name }}</td>
+          <th>{{ 'sllist.property.store' | translate }}</th>
+          <td>{{ entity.store.name }}</td>
         </tr>
-        </tbody>
-    </table>
-    </form>
-    <br/>
-    <div *ngIf="hasError()" class="alert alert-dismissible alert-danger">{{ getLastError() }}</div>
+        <tr>
+          <th>{{ 'actions.searchitem' | translate }}</th>
+          <td><input type="text" name="searchField" id="searchField" formControlName="searchField"
+              (keyup)="filterItems()" *ngIf="entity != null && entity.id > 0" /></td>
+        </tr>
+        <tr>
 
+        </tr>
+      </tbody>
+    </table>
+  </form>
+  <div class="row">
+    <div class="col-xs-12 col-sm-6">
+      <h4 class="card-header d-flex justify-content-between align-items-left">List Items</h4>
+      <div class="box overflow-auto">
+        <table class="table table-hover table-striped">
+          <tbody>
+            <tr *ngFor="let next of entity.items">
+              <td>{{ next.name }}</td>
+              <td>
+                <button class="btn btn-outline-primary btn-sm  me-1" (click)="removeItem(next.id)">
+                  <span class="fa fa-remove" aria-hidden="true"></span>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6">
+      <h4 class="card-header d-flex justify-content-between align-items-left">Store Items</h4>
+      <div class="box overflow-auto">
+        <table class="table table-hover table-striped">
+          <tbody>
+            <tr *ngFor="let next of searchItems">
+              <td>{{ next.name }}</td>
+              <td>
+                <button class="btn btn-outline-primary btn-sm  me-1" (click)="addItem(next.id)">
+                  <span class="fa fa-add" aria-hidden="true"></span>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>

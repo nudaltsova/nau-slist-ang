@@ -40,7 +40,7 @@
       <li class="nav-item">
         &nbsp;&nbsp;<span class="fa-solid fa-list"></span>&nbsp;&nbsp; 
       <li class="nav-item">
-        <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/lists/new/' + getActiveStore().id]">
+        <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/lists/new/' + getActiveStore().id]" *ngIf="activeStoreIndex >= 0">
           <span class="fa fa-plus me-1"></span>
         </button>
       </li>
@@ -58,6 +58,12 @@
               {{ next.date | date:'medium' }}
               <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/lists/edit/', next.id]">
                 <span class="fa fa-pencil" aria-hidden="true"></span>
+              </button>
+              <button class="btn btn-outline-primary btn-sm  me-1" (click)="copyList(i)">
+                <span class="fa fa-copy" aria-hidden="true"></span>
+              </button>
+              <button class="btn btn-outline-primary btn-sm  me-1" (click)="deletList(i)">
+                <span class="fa fa-trash" aria-hidden="true"></span>
               </button>
             </td>
           </tr>

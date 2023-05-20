@@ -28,4 +28,13 @@ export class HomeService  {
     return this.httpClient.get<SlList[]>(this.resourceUrl + '/lists' + query, { headers: httpHeaders, observe: 'response' });
   }
 
+  deleteList(id: number): Observable<HttpResponse<{}>> {
+    return this.httpClient.delete<SlList>(this.resourceUrl + '/lists/' + id, { headers: httpHeaders, observe: 'response' });
+  }
+
+  copyList(id: number): Observable<SlList> {
+    return this.httpClient.post<SlList>(this.resourceUrl + '/lists/copy?listId=' + id, { headers: httpHeaders, observe: 'response' });
+  }
+
+
 }

@@ -15,7 +15,6 @@ export class HeaderComponent implements OnInit {
         { label: 'slgroup.name', route: '/groups' },
         { label: 'slusergroup.name', route: '/usergroups' },
         { label: 'slstore.name', route: '/stores' },
-        { label: 'sllist.name', route: '/lists' },
       ]
     },
   ];
