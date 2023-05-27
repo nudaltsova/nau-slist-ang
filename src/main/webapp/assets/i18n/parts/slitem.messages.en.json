@@ -5,6 +5,8 @@
     "property.orderNum" : "OrderNum",
     "property.department" : "Department",
     "name": "Item",
-    "names": "Items"
+    "names": "Items",
+    "listitems": "List Items",
+    "storeitems": "Store Items"
   }
 }

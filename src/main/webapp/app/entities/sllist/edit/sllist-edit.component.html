@@ -25,11 +25,6 @@
           <td>{{ entity.store.name }}</td>
         </tr>
         <tr>
-          <th>{{ 'actions.searchitem' | translate }}</th>
-          <td><input type="text" name="searchField" id="searchField" formControlName="searchField"
-              (keyup)="filterItems()" *ngIf="entity != null && entity.id > 0" /></td>
-        </tr>
-        <tr>
 
         </tr>
       </tbody>
@@ -37,9 +32,9 @@
   </form>
   <div class="row">
     <div class="col-xs-12 col-sm-6">
-      <h4 class="card-header d-flex justify-content-between align-items-left">List Items</h4>
+      <h4 class="card-header d-flex justify-content-between align-items-left">{{ 'slitem.listitems' | translate }}</h4>
       <div class="box overflow-auto">
-        <table class="table table-hover table-striped">
+        <table class="table table-hover table-striped" style="border-left: solid gray">
           <tbody>
             <tr *ngFor="let next of entity.items">
               <td>{{ next.name }}</td>
@@ -55,9 +50,14 @@
     </div>
 
     <div class="col-xs-12 col-sm-6">
-      <h4 class="card-header d-flex justify-content-between align-items-left">Store Items</h4>
+      <h4 class="card-header d-flex justify-content-between align-items-left" style="align: right">
+        <div>
+          {{ 'slitem.storeitems' | translate }} &nbsp; 
+          <input type="text" (keyup)="filterItems($event.target)" *ngIf="entity != null && entity.id > 0" />  
+        </div>
+      </h4>
       <div class="box overflow-auto">
-        <table class="table table-hover table-striped">
+        <table class="table table-hover table-striped" style="border-left: solid gray">
           <tbody>
             <tr *ngFor="let next of searchItems">
               <td>{{ next.name }}</td>

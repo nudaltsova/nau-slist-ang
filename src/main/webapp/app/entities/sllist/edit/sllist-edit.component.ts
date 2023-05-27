@@ -19,14 +19,13 @@ import { NavigationService } from '../../../core/navigation';
 @Component({
   selector: 'list-edit',
   templateUrl: './sllist-edit.component.html',
-  styles: ['.box   { width: 100%; height: 400px; }']
+  styles: ['.box   { width: 100%; height: 500px; }']
 })
 export class SlListDetailsComponent extends CrudEditComponent<SlList> {
   protected doCopy = false;
   protected activeStore = -1;
   protected listDate: Date;
-  protected searchItems : SlItem[];
-  protected searchString: string = '';
+  protected searchItems: SlItem[];
 
   constructor(
     protected override entityService: SlListService,
@@ -43,7 +42,6 @@ export class SlListDetailsComponent extends CrudEditComponent<SlList> {
     this.editForm = this.formBuilder.group({
       date: '',
       store: '',
-      searchField: this.searchString
     });
 
     super.logMessage("ok");
@@ -80,7 +78,6 @@ export class SlListDetailsComponent extends CrudEditComponent<SlList> {
     this.editForm.patchValue({
       date: this.entity.date,
       store: this.entity.store.id,
-      searchField: this.searchString
     });
   }
 
@@ -107,7 +104,7 @@ export class SlListDetailsComponent extends CrudEditComponent<SlList> {
     });
   }
 
-  addItem(id: number ): void {
+  addItem(id: number): void {
     const item = new SlItem();
     item.id = id;
     this.entity.items.push(item);
@@ -122,16 +119,36 @@ export class SlListDetailsComponent extends CrudEditComponent<SlList> {
     });
   }
 
-  removeItem(id: number ): void {
-    
-  }
+  removeItem(id: number): void {
+    var idx = -1;
+    for (var i = 0; i < this.entity.items.length; i++) {
+      if (this.entity.items[i].id === id) {
+        idx = i;
+        break;
+      }
+    }
 
-  protected filterItems(){
-    this.searchString =  this.editForm.get(['searchField'])!.value;
-    if(! this.searchString || this.searchString.length == 0)
+    if (idx === -1)
       return;
 
-    const query = "storeId=" + this.entity.store.id + "&searchString=" + this.searchString;
+    this.entity.items.splice(idx, 1);
+    this.entityService.update(this.entity).subscribe({
+      next: (res: HttpResponse<SlItem>) => {
+        this.entity = res.body;
+        this.updateFormValues();
+      },
+      error: (error: any) => {
+        super.onError(error);
+      },
+    });
+
+  }
+
+  protected filterItems(event: any) {
+    if (!event || event.value.length == 0)
+      return;
+
+    const query = "storeId=" + this.entity.store.id + "&searchString=" + event.value;
     this.entityService.getStoreItems(query).subscribe({
       next: (res: HttpResponse<SlItem[]>) => {
         this.searchItems = res.body;
@@ -151,7 +168,7 @@ export class SlListDetailsComponent extends CrudEditComponent<SlList> {
       this.outRouter.navigate(['/stores/edit/' + this.entity.id]);
   }
 
-  protected override goBack(): void{
+  protected override goBack(): void {
     const redirectURL = this.navigationHistory.getRedirectBack();
     this.location.back();
   }
