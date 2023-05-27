@@ -13,6 +13,7 @@ import { NavigationService } from '../core/navigation';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalDialog } from '../core/modal/modal-dialog.component';
 import { formatDate } from '@angular/common';
+import { SlItem } from '../entities/slitem/slitem-model';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +26,8 @@ export class HomeComponent extends AbstractCrudComponent implements OnInit {
   groupStores: SlStore[][]
   lists: SlList[] = []
   activeGroupIndex = -1;
-  activeStoreIndex = 0;
+  activeStoreIndex = -1;
+  activeList: SlList = null;
   someFlag = true;
 
   constructor(
@@ -187,6 +189,31 @@ export class HomeComponent extends AbstractCrudComponent implements OnInit {
       },
     });
 
+  }
+
+  getActiveListItems(): SlItem[] {
+    if (this.activeList) return this.activeList.items;
+    return null;
+  }
+
+  openList(id: number) {
+    this.homeService.getList(id).subscribe({
+      next: (res: HttpResponse<SlList>) => {
+        this.activeList = res.body;
+        this.onSuccess("lists loaded", this.groups);
+      },
+      error: (error: any) => {
+        super.onError(error);
+      },
+    });
+  }
+
+  closeList() {
+    this.activeList = null;
+  }
+
+  updateItemStatus(id: number){
+    this.logMessage("updateItemStatus", id);
   }
 
 }

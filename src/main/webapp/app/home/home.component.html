@@ -47,13 +47,13 @@
     </ul>
   </div>
   <div class="row justify-content-md-left">
-    <ul class="col-md-auto nav nav-pills nav-fill">
-      <li class="nav-item">
-        &nbsp;&nbsp;
-      <li class="nav-item">
+    <ul class="nav">
+      <li>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+      <li>
         <table>      
           <tr *ngFor="let next of lists; let i = index">
-            <td colspan="2"> &nbsp;&nbsp; </td>
+            <td> &nbsp;&nbsp; </td>
             <td>
               {{ next.date | date:'medium' }}
               <button class="btn btn-outline-primary btn-sm  me-1" [routerLink]="['/lists/edit/', next.id]">
@@ -65,12 +65,35 @@
               <button class="btn btn-outline-primary btn-sm  me-1" (click)="deletList(i)">
                 <span class="fa fa-trash" aria-hidden="true"></span>
               </button>
+              <button class="btn btn-outline-primary btn-sm  me-1" (click)="openList(next.id)">
+                <span class="fa fa-folder-open" aria-hidden="true"></span>
+              </button>
+              <button class="btn btn-outline-primary btn-sm  me-1" (click)="closeList()">
+                <span class="fa fa-circle-xmark me-1" aria-hidden="true"></span>
+              </button>
             </td>
           </tr>
         </table>
       </li>
-    </ul>
-    
+    </ul>    
+  </div>
+  <div class="row justify-content-md-left" *ngIf="activeList != null">
+    <ul class="nav">
+      <li>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+      <li>
+        <table class="table table-hover table-striped">
+          <tbody>
+          <tr *ngFor="let next of getActiveListItems(); let i = index" (dblclick)="updateItemStatus(next.id)">
+            <td> &nbsp;&nbsp; </td>
+            <td>
+              {{ next.name }}
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </li>
+    </ul> 
   </div>
 
 </div>
