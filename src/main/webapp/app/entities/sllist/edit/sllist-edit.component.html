@@ -36,7 +36,7 @@
       <div class="box overflow-auto">
         <table class="table table-hover table-striped" style="border-left: solid gray">
           <tbody>
-            <tr *ngFor="let next of entity.items">
+            <tr *ngFor="let next of entity.items" (dblclick)="removeItem(next.id)">
               <td>{{ next.name }}</td>
               <td>
                 <button class="btn btn-outline-primary btn-sm  me-1" (click)="removeItem(next.id)">
@@ -59,7 +59,7 @@
       <div class="box overflow-auto">
         <table class="table table-hover table-striped" style="border-left: solid gray">
           <tbody>
-            <tr *ngFor="let next of searchItems">
+            <tr *ngFor="let next of searchItems" (dblclick)="addItem(next.id)">
               <td>{{ next.name }}</td>
               <td>
                 <button class="btn btn-outline-primary btn-sm  me-1" (click)="addItem(next.id)">

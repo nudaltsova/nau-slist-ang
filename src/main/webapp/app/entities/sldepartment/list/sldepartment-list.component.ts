@@ -27,8 +27,11 @@ export class SlDepartmentListComponent extends CrudListComponent<SlDepartment> {
 
   protected override bulldQuery(page: number): string {
     if (this.storeId) {
-      let queryParams = super.bulldQuery(page);
-      queryParams = queryParams + "&store.equal=" + this.storeId;
+      let queryParams = "?store.equal=" + this.storeId;
+      queryParams = queryParams + "&page=" + page;
+      queryParams = queryParams + "&size=" + environment.itemsPerPage;
+      queryParams = queryParams + "&sort=orderNum";
+      queryParams = queryParams + "," + (this.sortDirection ? "ASC" : "DESC");
       return queryParams;
     }
     return null;
